@@ -24,7 +24,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	if (!out)
 		return (NULL);
 	p += start;
-	ft_strcpy(out, p);
+	ft_strncpy(out, p, len);
 	out[len] = '\0';
 	return (out);
 }

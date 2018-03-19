@@ -60,7 +60,7 @@ ft_strrev.c \
 NAME = libft.a
 
 CFILES = $(wildcard *.c)
-OBJ = $(patsubst %.c, %.o, $(FILES))
+OBJ = $(patsubst %.c, %.o, $(CFILES))
 
 all:	$(NAME)
 
@@ -68,8 +68,8 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
-$(OBJ): $(FILES)
-	$(CC) $(CFLAGS) $(FILES)
+$(OBJ): $(CFILES)
+	$(CC) $(CFLAGS) $(CFILES)
 
 clean:
 	rm -rf $(OBJ)
@@ -79,4 +79,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean re

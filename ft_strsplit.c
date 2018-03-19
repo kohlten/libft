@@ -12,79 +12,61 @@
 
 #include "libft.h"
 
-static int        find_end(int start, const char *s, char sep)
+static int		find_end(const char *s, char c)
 {
-	while (s[start] == sep && s[start])
-		start++;
-    while (s[start] != sep && s[start])
-        start++;
-    return (start);
+	int len;
+
+	len = 0;
+	while (*s != c && *s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
 }
 
-static int        get_len(char const *s, char c)
+static int		get_len(const char *s, char c)
 {
-	int i;
+	int count;
+	int not_spliter;
 
+	count = 0;
+	not_spliter = 0;
+	while (*s != '\0')
+	{
+		if (not_spliter == 1 && *s == c)
+			not_spliter = 0;
+		else if (not_spliter == 0 && *s != c)
+		{
+			not_spliter = 1;
+			count++;
+		}
+		s++;
+	}
+	return (count);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**out;
+	int		i;
+	int		len;
+
+	len = get_len(s, c);
+	out = (char **)malloc((len + 1) * sizeof(char *));
+	if (!out)
+		return (NULL);
 	i = 0;
-    while (*s == c)
-    	s++;
-    while (*s)
-    {
-    	while (*s && *s != c)
-    		s++;
-    	while (*s == c)
-    		s++;
-    	i++;
-    }
-    return (i);
+	while (len--)
+	{
+		while (*s == c && *s)
+			s++;
+		out[i] = ft_strsub(s, 0, find_end(s, c));
+		if (!out[i])
+			return (NULL);
+		i++;
+		s += find_end(s, c);
+	}
+	out[i] = NULL;
+	return (out);
 }
-
-char            **ft_strsplit(char const *s, char c)
-{
-	char **out;
-	int i;
-
-	if (!s || !c)
-        return (NULL);
-    out = (char **)malloc((get_len(s, c) + 1) * sizeof(char *));
-    if (!out)
-        return (NULL);
-    i = 0;
-    while (*s)
-    {
-    	if (find_end(0, s, c) > 0)
-    		out[i++] = (char *)ft_slice((void *)s, 0, find_end(0, s, c));
-    	s++;
-    }
-    out[i] = NULL;
-    return (out);
-}
-
-/*char            **ft_strsplit(char const *s, char c)
-{
-    int        i;
-    int        j;
-    char    **out;
-
-    if (!s || !c)
-        return (NULL);
-    out = (char **)malloc((get_len(s, c) + 1) * sizeof(char *));
-    if (!out)
-        return (NULL);
-    i = -1;
-    j = 0;
-    while (s[++i])
-    {
-        if (s[i] == c)
-        {
-            while (s[i] == c)
-                i++;
-            if ((i - find_end(i, s, c)) > 0 || (i == 1 && s[i - 1] == c))
-                out[j++] = (char *)ft_slice((void *)s, i, find_end(i, s, c));
-        }
-        else if (i == 0)
-            out[j++] = (char *)ft_slice((void *)s, i, find_end(i, s, c));
-    }
-    out[j] = NULL;
-    return (out);
-}*/
