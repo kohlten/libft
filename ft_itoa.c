@@ -37,7 +37,7 @@ char		*ft_itoa(int n)
 		return (ft_strdup("-2147483648"));
 	if (n < 0 && (neg = 1))
 		n *= -1;
-	out = ft_strnew(find_len(n));
+	out = ft_strnew(find_len(n) + 1);
 	if (!out)
 		return (NULL);
 	i = 0;
