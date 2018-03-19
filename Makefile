@@ -59,47 +59,24 @@ ft_strrev.c \
 
 NAME = libft.a
 
-OBJ := $(shell echo $(FILES) | sed "s/\.c/\.o/g")
-
-.PHONY: $(NAME)
-
-$(NAME):
-	$(CC) $(CFLAGS) $(FILES)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
-
-.PHONY: all
+CFILES = $(wildcard *.c)
+OBJ = $(patsubst %.c, %.o, $(FILES))
 
 all:	$(NAME)
 
-.PHONY: copy
+$(NAME): $(OBJ)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
-copy:
-	cp $(FILES) .
-	cp My_Funcs/ft_isspace.c .
-
-.PHONY: clean
+$(OBJ): $(FILES)
+	$(CC) $(CFLAGS) $(FILES)
 
 clean:
 	rm -rf $(OBJ)
 
-.PHONY: fclean
+fclean: clean
+	rm -f $(NAME)
 
-fclean:
-	make clean
-	rm -rf $(NAME)
-	rm -rf libft
+re: fclean all
 
-.PHONY: re
-
-re:
-	make fclean
-	make all
-
-.PHONY: test
-
-test:
-	make all
-	$(CC) -o libft -Wall -Wextra -Wall tests.c libft.a
-	make clean
-
+.PHONY: clean fclean all re
