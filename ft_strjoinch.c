@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strjoinch.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astrole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 11:06:40 by astrole           #+#    #+#             */
-/*   Updated: 2018/02/20 11:06:42 by astrole          ###   ########.fr       */
+/*   Created: 2018/06/04 20:39:46 by astrole           #+#    #+#             */
+/*   Updated: 2018/06/04 20:39:48 by astrole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strjoinch(char const *s1, char c)
 {
-	int		len;
-	char	*result;
-	int		i;
+	char	*new_str;
+	size_t	i;
+	size_t	s1_len;
 
-	len = ft_strlen(s1) + 1;
-	result = ft_memalloc(sizeof(char) * len);
-	if (!result)
+	if (!s1 || !c)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	return (result);
+	s1_len = ft_strlen(s1);
+	new_str = ft_strnew(s1_len + 1);
+	if (!new_str)
+		return (NULL);
+	i = -1;
+	while (++i < s1_len)
+		*(new_str + i) = *(s1 + i);
+	*(new_str + i) = c;
+	return (new_str);
 }

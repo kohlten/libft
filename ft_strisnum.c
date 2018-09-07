@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strisnum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astrole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 11:06:40 by astrole           #+#    #+#             */
-/*   Updated: 2018/02/20 11:06:42 by astrole          ###   ########.fr       */
+/*   Created: 2018/08/14 01:41:23 by astrole           #+#    #+#             */
+/*   Updated: 2018/08/14 01:41:24 by astrole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int	ft_strisnum(char *str)
 {
-	int		len;
-	char	*result;
-	int		i;
+	int i;
 
-	len = ft_strlen(s1) + 1;
-	result = ft_memalloc(sizeof(char) * len);
-	if (!result)
-		return (NULL);
 	i = 0;
-	while (i < len)
-	{
-		result[i] = s1[i];
+	while (ft_isspace(str[i]))
 		i++;
-	}
-	return (result);
+	if (str[i] == '-')
+		i++;
+	else if (str[i] == '+')
+		i++;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+		i++;
+	return ((str[i] >= '0' && str[i] <= '9') || str[i] == '\0');
 }

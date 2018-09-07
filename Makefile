@@ -1,4 +1,4 @@
-CFLAGS = -c -Wall -Wextra -Wall
+CFLAGS = -c -Wall -Wextra -Wall -I../includes
 CC = gcc
 NAME = libft.a
 
@@ -8,17 +8,19 @@ OBJ = $(patsubst %.c, %.o, $(CFILES))
 all:	$(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "Done"
 
-$(OBJ): $(CFILES)
-	$(CC) $(CFLAGS) $(CFILES)
+%.o: %.c
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "CC $(CFLAGS) -c -o $@ $<"
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

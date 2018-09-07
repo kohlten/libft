@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strisdigit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astrole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 11:06:40 by astrole           #+#    #+#             */
-/*   Updated: 2018/02/20 11:06:42 by astrole          ###   ########.fr       */
+/*   Created: 2018/08/16 05:35:07 by astrole           #+#    #+#             */
+/*   Updated: 2018/08/16 05:35:08 by astrole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int		ft_strisdigit(char *s)
 {
-	int		len;
-	char	*result;
-	int		i;
-
-	len = ft_strlen(s1) + 1;
-	result = ft_memalloc(sizeof(char) * len);
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	return (result);
+	while (*s)
+		if (!ft_isdigit(*s++))
+			return (0);
+	return (1);
 }

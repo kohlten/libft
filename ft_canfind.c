@@ -20,19 +20,20 @@ int		ft_canfind(char *haystack, char *needle)
 	size_t j;
 
 	len = ft_strlen(needle);
-	while (*haystack)
+	i = 0;
+	while (haystack[i])
 	{
 		moved = 0;
 		j = 0;
-		i = 0;
-		while (i < len)
+		while (j < len)
 		{
-			if (needle[i++] == haystack[j++])
+			if (needle[j] == haystack[i + j])
 				moved++;
+			j++;
 		}
 		if (moved == len)
-			return (1);
-		haystack++;
+			return (i);
+		i++;
 	}
-	return (0);
+	return (-1);
 }

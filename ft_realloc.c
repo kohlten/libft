@@ -12,29 +12,22 @@
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t new_size)
+void	*ft_realloc(void *ptr, size_t size, size_t prev_size)
 {
-	void	*out;
-	int		size;
-	char	*p;
+	void	*newptr;
 
-	p = (char *)ptr;
-	size = 0;
-	if (!new_size)
-		new_size = 1;
-	if (!ptr && (out = malloc(new_size)))
-		return (out);
-	while (p[size])
-		size++;
-	if (size + 1 == new_size)
-		return (ptr);
-	out = malloc(new_size);
-	if (!out)
+	if (!ptr)
+	{
+		newptr = ft_memalloc(size);
+		return (newptr);
+	}
+	newptr = ft_memalloc(size);
+	if (!newptr)
 		return (NULL);
-	if (size + 1 <= new_size)
-		ft_memcpy(out, ptr, size + 1);
+	if (prev_size <= size)
+		newptr = ft_memcpy(newptr, ptr, prev_size);
 	else
-		ft_memcpy(out, ptr, new_size);
+		newptr = ft_memcpy(newptr, ptr, size);
 	free(ptr);
-	return (out);
+	return (newptr);
 }
