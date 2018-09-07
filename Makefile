@@ -1,23 +1,28 @@
-CFLAGS = -c -Wall -Wextra -Wall -I../includes
+CFLAGS = -c -Wall -Wextra -Wall -Iinclude
 CC = gcc
 NAME = libft.a
 
-CFILES = $(wildcard *.c)
-OBJ = $(patsubst %.c, %.o, $(CFILES))
+OBJ_FOLDER = obj
+
+CFILES = $(wildcard src/*.c)
+OBJ = $(patsubst src/%.c, obj/%.o, $(CFILES))
 
 all:	$(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_FOLDER) $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo "Done"
 
-%.o: %.c
+$(OBJ_FOLDER):
+	mkdir obj
+
+obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "CC $(CFLAGS) -c -o $@ $<"
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_FOLDER)
 
 fclean: clean
 	@rm -f $(NAME)
