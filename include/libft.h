@@ -23,6 +23,7 @@ typedef struct	s_list
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
+	struct s_list	*prev;
 }				t_list;
 
 int				get_next_line(const int fd, char **line);
