@@ -1,11 +1,11 @@
 CFLAGS = -c -Wall -Wextra -Wall -Iinclude
 CC = gcc
-NAME = libft.a
+NAME = build/libft.a
 
-OBJ_FOLDER = obj
+OBJ_FOLDER = build/obj
 
 CFILES = $(wildcard src/*.c)
-OBJ = $(patsubst src/%.c, obj/%.o, $(CFILES))
+OBJ = $(patsubst src/%.c, build/obj/%.o, $(CFILES))
 
 all:	$(NAME)
 
@@ -15,9 +15,9 @@ $(NAME): $(OBJ_FOLDER) $(OBJ)
 	@echo "Done"
 
 $(OBJ_FOLDER):
-	mkdir obj
+	mkdir build build/obj
 
-obj/%.o: src/%.c
+build/obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "CC $(CFLAGS) -c -o $@ $<"
 
@@ -26,6 +26,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -rf build
 
 re: fclean all
 
